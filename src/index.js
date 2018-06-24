@@ -3,7 +3,7 @@ const minimist = require("minimist")
 
 const args = minimist(process.argv.slice(2))
 
-const [command, ...commandArgs] = args._
+const [command = "help", ...commandArgs] = args._
 const { _, ...commandOpts } = args
 const isDebug = commandOpts.d || commandOpts.debug
 
@@ -13,9 +13,17 @@ if (isDebug) {
     console.log("opts: ", commandOpts)
 }
 
-if (command == "echo") {
+if (command === "echo") {
     const [message] = commandArgs
     console.log(`You're a wise man who said '${message}'`)
+} else if (command === "help") {
+    const help = `
+Welcome to wlog, available commands
+
+    echo    : print whatever you say back to you
+    help    : show this message
+`
+    console.log(help)
 } else {
     console.log(`Unknown command '${command}'`)
 }
