@@ -5,10 +5,13 @@ const args = minimist(process.argv.slice(2))
 
 const [command, ...commandArgs] = args._
 const { _, ...commandOpts } = args
+const isDebug = commandOpts.d || commandOpts.debug
 
-console.log("command: ", command)
-console.log("args: ", commandArgs)
-console.log("opts: ", commandOpts)
+if (isDebug) {
+    console.log("command: ", command)
+    console.log("args: ", commandArgs)
+    console.log("opts: ", commandOpts)
+}
 
 if (command == "echo") {
     const [message] = commandArgs
