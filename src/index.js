@@ -14,16 +14,9 @@ if (isDebug) {
 }
 
 if (command === "echo") {
-    const [message] = commandArgs
-    console.log(`You're a wise man who said '${message}'`)
+    require("./infrastructure/echo-command").execute(commandArgs, commandOpts)
 } else if (command === "help") {
-    const help = `
-Welcome to wlog, available commands
-
-    echo    : print whatever you say back to you
-    help    : show this message
-`
-    console.log(help)
+    require("./infrastructure/help-command").execute(commandArgs, commandOpts)
 } else {
     console.log(`Unknown command '${command}'`)
 }
