@@ -13,10 +13,13 @@ if (isDebug) {
     console.log("opts: ", commandOpts)
 }
 
-if (command === "echo") {
-    require("./infrastructure/echo-command").execute(commandArgs, commandOpts)
-} else if (command === "help") {
-    require("./infrastructure/help-command").execute(commandArgs, commandOpts)
-} else {
+try {
+    require(`./infrastructure/${command}-command`).execute(
+        commandArgs,
+        commandOpts
+    )
+} catch (err) {
+    if (isDebug) console.log(err)
+
     console.log(`Unknown command '${command}'`)
 }
