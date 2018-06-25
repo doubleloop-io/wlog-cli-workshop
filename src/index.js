@@ -20,10 +20,7 @@ if (isDebug) {
 }
 
 const dependencies = {
-    entryCatalog: makeEntryCatalog([
-        { title: "entry 1" },
-        { title: "entry 2" }
-    ]),
+    entryCatalog: makeEntryCatalog([]),
     display: makeDisplay()
 }
 

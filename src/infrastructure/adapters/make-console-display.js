@@ -2,7 +2,7 @@ function makeDisplay() {
     return {
         renderEntries(entries) {
             entries.forEach(e => {
-                const line = `- ${e.title}`
+                const line = `- ${e.title} ${e.date.value}`
                 console.log(line)
             })
         },
