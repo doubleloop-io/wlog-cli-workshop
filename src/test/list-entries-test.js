@@ -5,6 +5,11 @@
  */
 const { suite, test } = require("mocha")
 const assertEx = require("./assert-ex")
+const { listEntries } = require("../core/entry-controller")
+
+const {
+    makeEntryCatalog
+} = require("../infrastructure/adapters/make-inmemory-entry-catalog")
 
 suite("list entries", async () => {
     test("many entries", async () => {
@@ -13,7 +18,7 @@ suite("list entries", async () => {
             { title: "entry 2" },
             { title: "entry 3" }
         ]
-        const entryCatalog = makeInMemoryEntryCatalog(entries)
+        const entryCatalog = makeEntryCatalog(entries)
         const display = makeSpyDisplay()
 
         await listEntries({ entryCatalog, display })
@@ -24,7 +29,7 @@ suite("list entries", async () => {
     })
 
     test("no entries", async () => {
-        const entryCatalog = makeInMemoryEntryCatalog([])
+        const entryCatalog = makeEntryCatalog([])
         const display = makeSpyDisplay()
 
         await listEntries({ entryCatalog, display })
@@ -32,14 +37,6 @@ suite("list entries", async () => {
         assertEx.contains("no entries yet", display.text)
     })
 })
-
-function makeInMemoryEntryCatalog(entries) {
-    return {
-        async getAll() {
-            return Promise.resolve(entries)
-        }
-    }
-}
 
 function makeSpyDisplay() {
     return {
@@ -55,11 +52,4 @@ function makeSpyDisplay() {
             this.text += "no entries yet"
         }
     }
-}
-
-async function listEntries({ entryCatalog, display }) {
-    const all = await entryCatalog.getAll()
-
-    if (all.length) display.renderEntries(all)
-    else display.renderNoEntries()
 }
