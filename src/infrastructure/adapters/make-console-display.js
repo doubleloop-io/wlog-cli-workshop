@@ -9,6 +9,10 @@ function makeDisplay() {
 
         renderNoEntries() {
             console.log("no entries yet")
+        },
+
+        renderEntryAdded(entry) {
+            console.log(`entry '${entry.title}' added`)
         }
     }
 }

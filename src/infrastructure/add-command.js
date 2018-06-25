@@ -1,5 +1,11 @@
+const { addEntry } = require("../core/entry-controller")
+
 function execute(commandArgs, commandOpts, deps) {
-    console.log("add command")
+    const entry = {
+        title: commandArgs[0]
+    }
+
+    addEntry(deps, entry)
 }
 
 module.exports = { execute }
