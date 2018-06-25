@@ -20,7 +20,7 @@ suite("list entries", async () => {
             entry("entry 2", "2018-06-27"),
             entry("entry 3", "2018-06-28")
         ]
-        const entryCatalog = makeEntryCatalog(entries)
+        const entryCatalog = await makeEntryCatalog(entries)
         const display = makeSpyDisplay()
 
         await listEntries({ entryCatalog, display })
@@ -31,7 +31,7 @@ suite("list entries", async () => {
     })
 
     test("no entries", async () => {
-        const entryCatalog = makeEntryCatalog([])
+        const entryCatalog = await makeEntryCatalog([])
         const display = makeSpyDisplay()
 
         await listEntries({ entryCatalog, display })

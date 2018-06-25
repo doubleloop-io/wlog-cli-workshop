@@ -1,7 +1,7 @@
 const R = require("ramda")
 const bdate = require("../../core/bdate")
 
-function makeEntryCatalog(entries = []) {
+async function makeEntryCatalog(entries = []) {
     const clone = obj => {
         if (!obj.date) throw new Error("entry.date not set. Did you forget it?")
         return { ...obj }

@@ -6,7 +6,7 @@ const bdate = require("../core/bdate")
 module.exports = function(buildCatalogWith, buildEmptyCatalog) {
     test("add one entry", async () => {
         const newEntry = entry("entry 1", "2018-06-26")
-        const entryCatalog = buildEmptyCatalog()
+        const entryCatalog = await buildEmptyCatalog()
 
         await entryCatalog.add(newEntry)
 
@@ -20,7 +20,7 @@ module.exports = function(buildCatalogWith, buildEmptyCatalog) {
             entry("entry 2", "2018-06-27"),
             entry("entry 3", "2018-06-28")
         ]
-        const entryCatalog = buildCatalogWith(entries)
+        const entryCatalog = await buildCatalogWith(entries)
 
         const all = await entryCatalog.getAll()
 
@@ -35,7 +35,7 @@ module.exports = function(buildCatalogWith, buildEmptyCatalog) {
             entry("entry 1", "2018-06-26"),
             entry("entry 3", "2018-06-28")
         ]
-        const entryCatalog = buildCatalogWith(entries)
+        const entryCatalog = await buildCatalogWith(entries)
 
         const all = await entryCatalog.getAll()
 
@@ -50,7 +50,7 @@ module.exports = function(buildCatalogWith, buildEmptyCatalog) {
             entry("entry 1", "2018-06-26"),
             entry("entry 3", "2018-06-28")
         ]
-        const entryCatalog = buildCatalogWith(entries)
+        const entryCatalog = await buildCatalogWith(entries)
 
         const all = await entryCatalog.getAll({ maxNoOfEntries: 2 })
 

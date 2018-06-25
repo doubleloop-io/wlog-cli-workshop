@@ -17,7 +17,7 @@ const {
 suite("add entry", () => {
     test("one valid entry", async () => {
         const newEntry = entry("very important stuff", "2018-06-26")
-        const entryCatalog = makeEntryCatalog([])
+        const entryCatalog = await makeEntryCatalog([])
         const display = makeSpyDisplay()
 
         await addEntry({ entryCatalog, display }, newEntry)

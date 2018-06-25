@@ -19,19 +19,23 @@ if (isDebug) {
     console.log("opts: ", commandOpts)
 }
 
-const dependencies = {
-    entryCatalog: makeEntryCatalog([]),
-    display: makeDisplay()
-}
+start()
 
-try {
-    require(`./infrastructure/${command}-command`).execute(
-        commandArgs,
-        commandOpts,
-        dependencies
-    )
-} catch (err) {
-    if (isDebug) console.log(err)
+async function start() {
+    const dependencies = {
+        entryCatalog: await makeEntryCatalog([]),
+        display: makeDisplay()
+    }
 
-    console.log(`Unknown command '${command}'`)
+    try {
+        require(`./infrastructure/${command}-command`).execute(
+            commandArgs,
+            commandOpts,
+            dependencies
+        )
+    } catch (err) {
+        if (isDebug) console.log(err)
+
+        console.log(`Unknown command '${command}'`)
+    }
 }
