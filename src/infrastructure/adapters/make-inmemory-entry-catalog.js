@@ -1,5 +1,8 @@
 function makeEntryCatalog(entries = []) {
-    const clone = obj => ({ ...obj })
+    const clone = obj => {
+        if (!obj.date) throw new Error("entry.date not set. Did you forget it?")
+        return { ...obj }
+    }
     let innerEntries = entries.map(clone)
 
     return {
@@ -8,6 +11,9 @@ function makeEntryCatalog(entries = []) {
         },
 
         async add(entry) {
+            if (!entry.date)
+                throw new Error("entry.date not set. Did you forget it?")
+
             innerEntries = [...innerEntries, entry]
         }
     }

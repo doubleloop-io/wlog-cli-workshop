@@ -1,5 +1,7 @@
 const { suite, test } = require("mocha")
 const assertEx = require("./assert-ex")
+const bdate = require("../core/bdate")
+
 const {
     makeEntryCatalog
 } = require("../infrastructure/adapters/make-inmemory-entry-catalog")
@@ -13,7 +15,7 @@ const {
 
 suite("inmemory entry catalog", () => {
     test("add one entry", async () => {
-        const newEntry = entry("entry 1")
+        const newEntry = entry("entry 1", "2018-06-26")
         const entryCatalog = makeEntryCatalog([])
 
         await entryCatalog.add(newEntry)
@@ -23,7 +25,11 @@ suite("inmemory entry catalog", () => {
     })
 
     test("get many entries", async () => {
-        const entries = [entry("entry 1"), entry("entry 2"), entry("entry 3")]
+        const entries = [
+            entry("entry 1", "2018-06-26"),
+            entry("entry 2", "2018-06-27"),
+            entry("entry 3", "2018-06-28")
+        ]
         const entryCatalog = makeEntryCatalog(entries)
 
         const all = await entryCatalog.getAll()
@@ -33,6 +39,6 @@ suite("inmemory entry catalog", () => {
     })
 })
 
-function entry(title) {
-    return { title: title }
+function entry(title, date) {
+    return { title: title, date: bdate.parse(date) }
 }
