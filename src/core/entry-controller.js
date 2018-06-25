@@ -5,4 +5,10 @@ async function listEntries({ entryCatalog, display }) {
     else display.renderNoEntries()
 }
 
-module.exports = { listEntries }
+async function addEntry({ entryCatalog, display }, entry) {
+    await entryCatalog.add(entry)
+
+    display.renderEntryAdded(entry)
+}
+
+module.exports = { listEntries, addEntry }

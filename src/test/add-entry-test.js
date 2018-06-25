@@ -1,14 +1,14 @@
 const { suite, test } = require("mocha")
 const assertEx = require("./assert-ex")
 const { makeSpyDisplay } = require("./test-doubles")
+const { addEntry } = require("../core/entry-controller")
 
 const {
     makeEntryCatalog
 } = require("../infrastructure/adapters/make-inmemory-entry-catalog")
 
 /** TEST LIST
- * one entry
- * many entries
+ * ---one entry
  * duplicate
  * ubiquity
  */
@@ -19,16 +19,10 @@ suite("add entry", () => {
         const entryCatalog = makeEntryCatalog([])
         const display = makeSpyDisplay()
 
-        addEntry({ entryCatalog, display }, entry)
+        await addEntry({ entryCatalog, display }, entry)
 
         const all = await entryCatalog.getAll()
         assertEx.contains(entry, all)
         assertEx.contains(entry.title, display.text)
     })
 })
-
-function addEntry({ entryCatalog, display }, entry) {
-    entryCatalog.add(entry)
-
-    display.renderEntryAdded(entry)
-}
