@@ -10,6 +10,10 @@ function makeSpyDisplay() {
 
         renderNoEntries() {
             this.text += "no entries yet"
+        },
+
+        renderEntryAdded(entry) {
+            this.text += `entry '${entry.title}' added`
         }
     }
 }
