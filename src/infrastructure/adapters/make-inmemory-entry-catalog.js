@@ -9,12 +9,19 @@ function makeEntryCatalog(entries = []) {
     let innerEntries = entries.map(clone)
 
     return {
-        async getAll() {
+        async getAll({ maxNoOfEntries } = {}) {
             const sortByDate = R.sort((a, b) => bdate.compare(b.date, a.date))
-            const sorted = sortByDate(innerEntries)
-            return Promise.resolve(sorted)
 
-            return Promise.resolve([...innerEntries])
+            const limitEntries = maxNoOfEntries
+                ? R.take(maxNoOfEntries)
+                : R.identity
+
+            const applyAll = R.pipe(
+                sortByDate,
+                limitEntries
+            )
+
+            return Promise.resolve(applyAll(innerEntries))
         },
 
         async add(entry) {

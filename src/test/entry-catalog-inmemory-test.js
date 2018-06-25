@@ -54,6 +54,19 @@ suite("inmemory entry catalog", () => {
         assert.deepEqual(all[1], entries[0])
         assert.deepEqual(all[2], entries[1])
     })
+
+    test("max number of entries", async () => {
+        const entries = [
+            entry("entry 2", "2018-06-27"),
+            entry("entry 1", "2018-06-26"),
+            entry("entry 3", "2018-06-28")
+        ]
+        const entryCatalog = makeEntryCatalog(entries)
+
+        const all = await entryCatalog.getAll({ maxNoOfEntries: 2 })
+
+        assert.equal(all.length, 2)
+    })
 })
 
 function entry(title, date) {
