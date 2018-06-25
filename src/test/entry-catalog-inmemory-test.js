@@ -21,4 +21,18 @@ suite("inmemory entry catalog", () => {
         const all = await entryCatalog.getAll()
         assertEx.contains(entry, all)
     })
+
+    test("get many entries", async () => {
+        const entries = [
+            { title: "entry 1" },
+            { title: "entry 2" },
+            { title: "entry 3" }
+        ]
+        const entryCatalog = makeEntryCatalog(entries)
+
+        const all = await entryCatalog.getAll()
+        assertEx.contains(entries[0], all)
+        assertEx.contains(entries[1], all)
+        assertEx.contains(entries[2], all)
+    })
 })
