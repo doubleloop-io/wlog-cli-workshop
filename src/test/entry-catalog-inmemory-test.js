@@ -13,21 +13,17 @@ const {
 
 suite("inmemory entry catalog", () => {
     test("add one entry", async () => {
-        const entry = { title: "entry 1" }
+        const newEntry = entry("entry 1")
         const entryCatalog = makeEntryCatalog([])
 
-        await entryCatalog.add(entry)
+        await entryCatalog.add(newEntry)
 
         const all = await entryCatalog.getAll()
-        assertEx.contains(entry, all)
+        assertEx.contains(newEntry, all)
     })
 
     test("get many entries", async () => {
-        const entries = [
-            { title: "entry 1" },
-            { title: "entry 2" },
-            { title: "entry 3" }
-        ]
+        const entries = [entry("entry 1"), entry("entry 2"), entry("entry 3")]
         const entryCatalog = makeEntryCatalog(entries)
 
         const all = await entryCatalog.getAll()
@@ -36,3 +32,7 @@ suite("inmemory entry catalog", () => {
         assertEx.contains(entries[2], all)
     })
 })
+
+function entry(title) {
+    return { title: title }
+}
