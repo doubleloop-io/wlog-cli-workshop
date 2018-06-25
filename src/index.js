@@ -5,7 +5,7 @@ const {
 } = require("./infrastructure/adapters/make-console-display")
 const {
     makeEntryCatalog
-} = require("./infrastructure/adapters/make-inmemory-entry-catalog")
+} = require("./infrastructure/adapters/make-nedb-entry-catalog")
 
 const args = minimist(process.argv.slice(2))
 
@@ -23,7 +23,7 @@ start()
 
 async function start() {
     const dependencies = {
-        entryCatalog: await makeEntryCatalog([]),
+        entryCatalog: await makeEntryCatalog({ filename: "entries.db" }),
         display: makeDisplay()
     }
 
