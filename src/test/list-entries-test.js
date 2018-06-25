@@ -6,6 +6,7 @@
 const { suite, test } = require("mocha")
 const assertEx = require("./assert-ex")
 const { listEntries } = require("../core/entry-controller")
+const { makeSpyDisplay } = require("./test-doubles")
 
 const {
     makeEntryCatalog
@@ -37,19 +38,3 @@ suite("list entries", async () => {
         assertEx.contains("no entries yet", display.text)
     })
 })
-
-function makeSpyDisplay() {
-    return {
-        text: "",
-        renderEntries(entries) {
-            entries.forEach(e => {
-                const line = `${e.title}\n`
-                this.text += line
-            })
-        },
-
-        renderNoEntries() {
-            this.text += "no entries yet"
-        }
-    }
-}
